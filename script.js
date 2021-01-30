@@ -122,8 +122,26 @@ function viewDept() {
 }
 
 function addEmployee() {
-    console.log("add employee");
-    var query = "INSERT "
+    connection.query("SELECT * FROM roles", function (err, res) {
+        console.log("test")
+        console.log(res);
+        console.log(res[0].title)
+        let options = res.map(res => res.title);
+        const { role } = res;
+        console.log(role);
+    })
+    inquirer
+        .prompt({
+            name: "empDept",
+            type: "list",
+            message: "Enter the employee's role",
+            choices: options
+            
+        }).then(function (answer) {
+            
+        })
+    
+    
 }
 
 function addRole() {
