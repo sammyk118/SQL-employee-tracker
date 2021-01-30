@@ -1,6 +1,5 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-const { allowedNodeEnvironmentFlags } = require("process");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -67,15 +66,6 @@ function beginPrompt() {
                     });
         }
         })
-    
-}
-
-function addEmployee() {
-    console.log("add employee");
-}
-
-function addRole() {
-    console.log("add role");
 }
 
 function addDepartment() {
@@ -100,9 +90,7 @@ function viewEmp() {
     var query = "SELECT * FROM employees";
     connection.query(query, function (err, res) {
         console.log("\nEmployees:")
-        res.forEach(employees => {
-            console.log(`Id: ${employees.id} || Name: ${employees.first_name} ${employees.last_name} || Role Id: ${employees.role_id} || Manager Id: ${employees.manager_id}`);
-        })
+        console.table(res);
         console.log("\n");
         beginPrompt();
     })
@@ -113,9 +101,7 @@ function viewRoles() {
     var query = "SELECT * FROM roles";
     connection.query(query, function (err, res) {
         console.log("\nRoles: ");
-        res.forEach(roles => {
-            console.log(`Id: ${roles.id} || ${roles.title} || ${roles.salary} || ${roles.department_id}`)
-        })
+        console.table(res);
         console.log("\n")
         beginPrompt();
     })
@@ -125,14 +111,20 @@ function viewDept() {
     var query = "SELECT * FROM departments";
     connection.query(query, function (err, res) {
         console.log("\nDepartments:");
-        res.forEach(departments => {
-            console.log(`Id: ${departments.id} || Name: ${departments.name}`)
-        })
+        console.table(res);
         console.log("\n")
         beginPrompt();
     })
 }
 
+function addEmployee() {
+    console.log("add employee");
+    var query = "INSERT "
+}
+
+function addRole() {
+    console.log("add role");
+}
 function updateRoles() {
     console.log("update roles");
 }
