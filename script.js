@@ -79,7 +79,20 @@ function addRole() {
 }
 
 function addDepartment() {
-    console.log("add department");
+    inquirer
+        .prompt({
+            name: "addDept",
+            type: "input",
+            message: "Enter the name of the department to add"
+        })
+        .then(function (answer) {
+            console.log(answer.addDept);
+            var query = "INSERT INTO departments (name) VALUES (?)";
+            connection.query(query, [answer.addDept], function (err, res) {
+                console.log(`Added department ${answer.addDept} to the database`)
+            })
+            beginPrompt();
+    })
 }
 
 function viewEmp() {
@@ -127,4 +140,3 @@ function updateRoles() {
 
 
 
-beginPrompt();
