@@ -126,7 +126,7 @@ function addEmployee() {
         console.log("test")
         console.log(res);
         console.log(res[0].title)
-        let options = res.map(res => res.title);
+        var options = res.map(res => res.title);
         const { role } = res;
         console.log(role);
     })
