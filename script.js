@@ -87,8 +87,10 @@ function addDepartment() {
 
 function viewEmp() {
     console.log("view employees");
-    var query = "SELECT first_name, last_name, title FROM employees ";
-    query += "LEFT JOIN roles ON employees.role_id = roles.id"
+    var query = "SELECT emp.first_name, emp.last_name, role.title, dep.name AS departments, role.salary, CONCAT(mng.first_name, ' ', mng.last_name) AS manager FROM employees emp ";
+    query += "LEFT JOIN roles role ON emp.role_id = role.id ";
+    query += "LEFT JOIN departments dep ON dep.id = role.department_id ";
+    query += "LEFT JOIN employees mng ON mng.id = emp.manager_id";
     console.log
     connection.query(query, function (err, res) {
         console.log("\nEmployees:")
