@@ -86,6 +86,13 @@ function viewEmp() {
 
 function viewDept() {
     console.log("view departments");
+    var query = "SELECT * FROM departments";
+    connection.query(query, function (err, res) {
+        console.log("Departments:");
+        res.forEach(departments => {
+            console.log(`Id: ${departments.id} || Name: ${departments.name}`)
+        })
+    })
 }
 
 function updateRoles() {
