@@ -62,7 +62,9 @@ function beginPrompt() {
                     updateRoles();
                     break;
                 case "Exit":
-                    connection.end();
+                    connection.end(function (err) {
+                        console.log("connection terminated");
+                    });
         }
         })
     
@@ -82,16 +84,39 @@ function addDepartment() {
 
 function viewEmp() {
     console.log("view employees");
+    var query = "SELECT * FROM employees";
+    connection.query(query, function (err, res) {
+        console.log("\nEmployees:")
+        res.forEach(employees => {
+            console.log(`Id: ${employees.id} || Name: ${employees.first_name} ${employees.last_name} || Role Id: ${employees.role_id} || Manager Id: ${employees.manager_id}`);
+        })
+        console.log("\n");
+        beginPrompt();
+    })
+}
+
+function viewRoles() {
+    console.log("view roles");
+    var query = "SELECT * FROM roles";
+    connection.query(query, function (err, res) {
+        console.log("\nRoles: ");
+        res.forEach(roles => {
+            console.log(`Id: ${roles.id} || ${roles.title} || ${roles.salary} || ${roles.department_id}`)
+        })
+        console.log("\n")
+        beginPrompt();
+    })
 }
 
 function viewDept() {
-    console.log("view departments");
     var query = "SELECT * FROM departments";
     connection.query(query, function (err, res) {
-        console.log("Departments:");
+        console.log("\nDepartments:");
         res.forEach(departments => {
             console.log(`Id: ${departments.id} || Name: ${departments.name}`)
         })
+        console.log("\n")
+        beginPrompt();
     })
 }
 
