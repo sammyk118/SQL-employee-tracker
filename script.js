@@ -87,7 +87,9 @@ function addDepartment() {
 
 function viewEmp() {
     console.log("view employees");
-    var query = "SELECT * FROM employees";
+    var query = "SELECT first_name, last_name, title FROM employees ";
+    query += "LEFT JOIN roles ON employees.role_id = roles.id"
+    console.log
     connection.query(query, function (err, res) {
         console.log("\nEmployees:")
         console.table(res);
